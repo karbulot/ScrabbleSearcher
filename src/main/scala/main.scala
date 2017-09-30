@@ -1,22 +1,14 @@
+import scala.io.Source
+
 object main{
     def main(args: Array[String]):Unit = {
-        //Trie.clear
-        Trie addWord "a"
-        Trie addWord "b"
-        Trie addWord "ba"
-        Trie addWord "ab"
-        Trie addWord "ac"
-        Trie addWord "abc"
-        Trie addWord "abd"
-        Trie addWord "abcd"
-        Trie addWord "acb"
-        /*
-        Trie addWord "duma"
-        Trie addWord "c"
-        */
-        println(Trie.getWordsByPrefix("b"))
-        println(Trie.getWordsByPrefix("sgfds"))
-        println(Trie.checkWord("abd"))
-        println(Trie.checkWord("dgf"))
+        val dictionary = Source.fromFile("data/slowa.txt")
+        for (line <- dictionary.getLines) Trie addWord line.toLowerCase
+        dictionary.close()
+        println(Trie.checkWord("dupa"))
+        println(Trie.checkWord("mineralny"))
+        println(Trie.checkWord("sdfgsdg"))
+        val letters: List[Char] = List('a','b','c','d','e','f','g','h')
+        println(Trie.getWordScore("źrebię"))
     }
 }

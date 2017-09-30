@@ -5,6 +5,7 @@ object Trie {
     def getWords: List[String] = root.getWords
     def getWordsByPrefix(prefix: String): List[String] = root.getWordsByPrefix(prefix)
     def checkWord(word: String): Boolean = root.checkWord(word)
+    def findBestWord(letters: List[Char]):String = ???
     class TrieNode(character: Char) {
         private var parent: TrieNode = _
         var children: Array[TrieNode] = new Array[TrieNode](ALPHABET_LENGTH)
@@ -62,5 +63,17 @@ object Trie {
         case 'ż' => 33
         case 'ź' => 34
         case _ => c - 'a'
+    }
+
+    def getWordScore(s: String): Int = s.map(getLetterScore).sum
+
+    def getLetterScore(c: Char): Int = c match {
+        case 'a' | 'e' | 'i' | 'n' | 'o' | 'r' | 's' | 'w' | 'z' => 1
+        case 'c' | 'd' | 'k' | 'l' | 'm' | 'p' | 't' | 'y' => 2
+        case 'b' | 'g' | 'h' | 'j' | 'ł' | 'u' => 3
+        case 'ą' | 'ę' | 'f' | 'ó' | 'ś' | 'ż' => 5
+        case 'ć' => 6
+        case 'ń' => 7
+        case 'ź' => 9
     }
 }
