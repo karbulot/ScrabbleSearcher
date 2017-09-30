@@ -14,6 +14,6 @@ object main{
         Trie addWord "duma"
         Trie addWord "c"
         */
-        println(Trie.getWords)
+        println(Trie.getWordsByPrefix("b"))
     }
 }

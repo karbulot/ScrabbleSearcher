@@ -3,6 +3,8 @@ object Trie {
     var root: TrieNode = new TrieNode('\0')
     def addWord(word: String): Unit = root.addWord(word)
     def getWords: List[String] = root.getWords
+    def getWordsByPrefix(prefix: String): List[String] = root.getWordsByPrefix(prefix)
+    def checkWord(word: String): Boolean = root.checkWord(word)
     class TrieNode(character: Char) {
         private var parent: TrieNode = _
         var children: Array[TrieNode] = new Array[TrieNode](ALPHABET_LENGTH)
@@ -25,15 +27,14 @@ object Trie {
         }
 
         def getWords: List[String] = {
-            var ret: List[String] = List[String]()
+            var ret = List[String]()
             if (isWord) ret ::= this.toString
             if (!isLeaf) children.filter(_ != null).foreach(ret :::= _.getWords)
             ret
         }
 
-        def getWordsByPrefix(prefix: String): List[String] ={
-            ???
-        }
+        def getWordsByPrefix(prefix: String): List[String] = if (prefix.isEmpty) getWords
+            else children(getLetterNumber(prefix(0))).getWordsByPrefix(prefix.tail)
 
         override def toString: String = {
             if (parent == null) ""
@@ -42,6 +43,7 @@ object Trie {
 
         def getWord: String = toString
 
+        def checkWord(word: String): Boolean = ???
     }
 
     def getLetterNumber(c: Char): Int = c match {
