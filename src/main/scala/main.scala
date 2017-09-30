@@ -15,5 +15,8 @@ object main{
         Trie addWord "c"
         */
         println(Trie.getWordsByPrefix("b"))
+        println(Trie.getWordsByPrefix("sgfds"))
+        println(Trie.checkWord("abd"))
+        println(Trie.checkWord("dgf"))
     }
 }

@@ -34,7 +34,8 @@ object Trie {
         }
 
         def getWordsByPrefix(prefix: String): List[String] = if (prefix.isEmpty) getWords
-            else children(getLetterNumber(prefix(0))).getWordsByPrefix(prefix.tail)
+            else if (children(getLetterNumber(prefix(0)))!=null) children(getLetterNumber(prefix(0))).getWordsByPrefix(prefix.tail)
+            else List()
 
         override def toString: String = {
             if (parent == null) ""
@@ -43,7 +44,11 @@ object Trie {
 
         def getWord: String = toString
 
-        def checkWord(word: String): Boolean = ???
+        def checkWord(word: String): Boolean = {
+            if (word.isEmpty) if (isWord) true else false
+            else if (children(getLetterNumber(word(0)))!=null) children(getLetterNumber(word(0))).checkWord(word.tail)
+            else false
+        }
     }
 
     def getLetterNumber(c: Char): Int = c match {
