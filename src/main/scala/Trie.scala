@@ -5,8 +5,8 @@ object Trie {
     def getWords: List[String] = root.getWords
     def getWordsByPrefix(prefix: String): List[String] = root.getWordsByPrefix(prefix)
     def checkWord(word: String): Boolean = root.checkWord(word)
-    def findBestWord(letters: List[Char]):String = ???
-    class TrieNode(character: Char) {
+    def findBestWord(letters: List[Char]):String = ??? //root.getWordsContainingLetters(letters).sortWith(getWordScore)
+    class TrieNode(val character: Char) {
         private var parent: TrieNode = _
         var children: Array[TrieNode] = new Array[TrieNode](ALPHABET_LENGTH)
         private var isLeaf: Boolean = true
@@ -38,10 +38,14 @@ object Trie {
             else if (children(getLetterNumber(prefix(0)))!=null) children(getLetterNumber(prefix(0))).getWordsByPrefix(prefix.tail)
             else List()
 
-        override def toString: String = {
-            if (parent == null) ""
-            else parent + character.toString
+        def getWordsContainingLetters(letters: List[Char]): List[String] = {
+            var ret = List[String]()
+            if (isWord) ret ::= this.toString
+            if (!isLeaf) children.filter(_ != null).filter(letters contains _.character).foreach(child => ret :::= child.getWordsContainingLetters(letters.filter(_ != child.character)))
+            ret
         }
+
+        override def toString: String = if (parent == null) "" else parent + character.toString
 
         def getWord: String = toString
 
