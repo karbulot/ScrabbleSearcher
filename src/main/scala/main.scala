@@ -9,10 +9,7 @@ object main{
         //Trie addWord "dfdf"
         //Trie addWord "fsawrwqer"
         //Trie addWord "abdd"
-        println(Trie.checkWord("mineralny"))
-        println(Trie.checkWord("sdfgsdg"))
-        val letters: List[Char] = List('a','b','c','d','e','f','g','h')
-        //println(Trie.getWordsByPrefix("abd"))
-        println(Trie.root.getWordsContainingLetters(letters))
+        val letters: List[Char] = List('a','ż','c','d','ó','f','ń','h')
+        println(Trie.findBestWordWithPoints(letters))
     }
 }
